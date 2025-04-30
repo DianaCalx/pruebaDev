@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.back {
+  margin: 10px 0 20px 0;
+  width: 60px;
+  background-color: #026fff;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: 0.5rem;
+  position: absolute;
+  right: 10px;
+}
+
+.table__container {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.table__container div {
+  width: 50%;
+}
+
+.table__form {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.table__form input {
+  width: 50%;
+}
+
+.table {
+  border-collapse: collapse;
+  border: 1px solid rgb(0, 0, 153);
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid rgb(0, 0, 153);
+  padding: 0.5rem;
+}
