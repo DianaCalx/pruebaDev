@@ -8,6 +8,14 @@
 html {
   box-sizing: border-box;
 }
+
+html,
+body,
+#root {
+  height: 100dvh;
+  margin: 0;
+}
+
 *,
 *:before,
 *:after {

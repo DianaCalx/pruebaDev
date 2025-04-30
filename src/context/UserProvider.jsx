@@ -1,12 +1,16 @@
 import { useState } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import { UserContext } from "./UserContext";
 
 const url = "http://150.136.43.88:8064/api/DataTableToJson/GetDataToJson";
+
+const LS_INFO_KEY = "info";
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({ email: "", password: "" });
   const [info, setInfo] = useState({});
   const [tableData, setTableData] = useState();
+  const { setItemLS } = useLocalStorage(LS_INFO_KEY);
 
   const postUser = async ({ onSuccess, onError }) => {
     const value = {
@@ -25,11 +29,13 @@ export const UserProvider = ({ children }) => {
       const currentData = await response.json();
 
       if (currentData.ds.table1) {
-        setInfo({
+        const newInfo = {
           empresa: currentData.ds.table1[0].empresa,
           sucursal: currentData.ds.table2[0].sucursal,
           usuario: currentData.ds.table[0].usuario,
-        });
+        };
+        setInfo(newInfo);
+        setItemLS(newInfo);
         onSuccess();
       } else {
         onError();
@@ -54,7 +60,6 @@ export const UserProvider = ({ children }) => {
       });
 
       const currentData = await response.json();
-      console.log(currentData.ds);
       setTableData(currentData.ds.table);
     } catch (error) {
       console.log(error);
