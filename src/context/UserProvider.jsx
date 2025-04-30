@@ -30,9 +30,9 @@ export const UserProvider = ({ children }) => {
 
       if (currentData.ds.table1) {
         const newInfo = {
+          usuario: currentData.ds.table[0].usuario,
           empresa: currentData.ds.table1[0].empresa,
           sucursal: currentData.ds.table2[0].sucursal,
-          usuario: currentData.ds.table[0].usuario,
         };
         setInfo(newInfo);
         setItemLS(newInfo);

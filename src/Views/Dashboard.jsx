@@ -1,32 +1,34 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 
 import { BarChart } from "@mui/x-charts/BarChart";
 import { useNavigate } from "react-router";
-import Spinner from "../Components/Spinner";
+import Spinner from "../components/Spinner";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import "./Dashboard.css";
 
 const LS_INFO_KEY = "info";
 
 const transformChartData = (rows) => {
-  const addPerClient = rows?.reduce((acc, item) => {
+  const addPerClient = rows?.reduce((obj, item) => {
     const nombre = item.clienteNombre;
     const importe = item.importeTotal || 0;
 
-    if (!acc[nombre]) {
-      acc[nombre] = 0;
+    if (!obj[nombre]) {
+      obj[nombre] = 0;
     }
 
-    acc[nombre] += importe;
+    obj[nombre] += importe;
 
-    return acc;
+    return obj;
   }, {});
 
   const arrayClients = Object.entries(addPerClient).map(([nombre, total]) => ({
     nombre,
     total,
   }));
+
   return arrayClients;
 };
 
@@ -57,7 +59,6 @@ const Dashboard = () => {
     if (info.empresa && !tableData) {
       postTable();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [info]);
 
   useEffect(() => {
@@ -66,12 +67,12 @@ const Dashboard = () => {
       if (!info?.empresa && !infoLS) {
         navigate("/");
       }
+      /* HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
       if (!info?.empresa && infoLS) {
         setInfo(infoLS);
       }
     };
     verifyInfo();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getItemLS, navigate, setInfo]);
 
   useEffect(() => {
