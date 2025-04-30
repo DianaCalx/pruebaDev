@@ -2,7 +2,7 @@
 import { BarChart } from "@mui/x-charts/BarChart";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import Spinner from "../component/Spinner";
+import Spinner from "../components/Spinner";
 import { UserContext } from "../context/UserContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 

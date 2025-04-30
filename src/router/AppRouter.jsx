@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import Dashboard from "../view/Dashboard";
-import Login from "../view/Login";
+import Dashboard from "../views/Dashboard";
+import Login from "../views/Login";
 
 const AppRouter = () => {
   return (
