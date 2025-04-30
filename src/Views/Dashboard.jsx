@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../context/UserContext";
-
 import { BarChart } from "@mui/x-charts/BarChart";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Spinner from "../components/Spinner";
+import { UserContext } from "../context/UserContext";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+
 import "./Dashboard.css";
 
 const LS_INFO_KEY = "info";
@@ -67,7 +67,6 @@ const Dashboard = () => {
       if (!info?.empresa && !infoLS) {
         navigate("/");
       }
-      /* HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
       if (!info?.empresa && infoLS) {
         setInfo(infoLS);
       }

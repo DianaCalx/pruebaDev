@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
 import "./Login.css";
 
-export const Login = () => {
+const Login = () => {
   const { user, setUser, postUser } = useContext(UserContext);
   const [errors, setErrors] = useState(null);
   const [errorUser, setErrorUser] = useState(false);
@@ -93,3 +93,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login;
