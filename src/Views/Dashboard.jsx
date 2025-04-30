@@ -6,13 +6,45 @@ import { useNavigate } from "react-router";
 import Spinner from "../Components/Spinner";
 import "./Dashboard.css";
 
+const transformChartData = (rows) => {
+  const addPerClient = rows?.reduce((acc, item) => {
+    const nombre = item.clienteNombre;
+    const importe = item.importeTotal || 0;
+
+    if (!acc[nombre]) {
+      acc[nombre] = 0;
+    }
+
+    acc[nombre] += importe;
+
+    return acc;
+  }, {});
+
+  const arrayClients = Object.entries(addPerClient).map(([nombre, total]) => ({
+    nombre,
+    total,
+  }));
+  return arrayClients;
+};
+
 const formatDate = (fecha) => {
   const currentDate = new Date(fecha);
   return new Intl.DateTimeFormat("es-ES").format(currentDate);
 };
+
+const formatToUSD = (amount) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount);
+};
+
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { tableData, postTable, info, setInfo } = useContext(UserContext);
+  const { tableData, postTable, info, setInfo, setUser } =
+    useContext(UserContext);
   const [localTable, setLocalTable] = useState([]);
   const [search, setSearch] = useState("");
   const [valuesPerClients, setValuesPerClients] = useState([]);
@@ -29,32 +61,9 @@ const Dashboard = () => {
   }, [info, navigate]);
 
   useEffect(() => {
-    console.clear();
-    console.log("tableData", tableData);
     if (tableData) {
       setLocalTable(tableData);
-
-      const addPerClient = tableData?.reduce((acc, item) => {
-        const nombre = item.clienteNombre;
-        const importe = item.importeTotal || 0;
-
-        if (!acc[nombre]) {
-          acc[nombre] = 0;
-        }
-
-        acc[nombre] += importe;
-
-        return acc;
-      }, {});
-
-      const arrayClients = Object.entries(addPerClient).map(
-        ([nombre, total]) => ({
-          nombre,
-          total,
-        })
-      );
-
-      console.log(arrayClients);
+      const arrayClients = transformChartData(tableData);
       setValuesPerClients(arrayClients);
     }
   }, [navigate, tableData]);
@@ -64,6 +73,8 @@ const Dashboard = () => {
 
     if (search.trim() === "") {
       setLocalTable(tableData);
+      const arrayClients = transformChartData(tableData);
+      setValuesPerClients(arrayClients);
       return;
     }
 
@@ -74,11 +85,13 @@ const Dashboard = () => {
     );
 
     setLocalTable(filtered);
+    const arrayClients = transformChartData(filtered);
+    setValuesPerClients(arrayClients);
   };
 
   const handleLogout = () => {
     setInfo({});
-    // navigate("/");
+    setUser({ email: "", password: "" });
   };
 
   return !tableData ? (
@@ -86,7 +99,7 @@ const Dashboard = () => {
   ) : (
     <div className="container">
       <button
-        className="back"
+        className="logout"
         onClick={handleLogout}
       >
         Logout
@@ -99,12 +112,14 @@ const Dashboard = () => {
             onSubmit={(e) => handleSearch(e)}
           >
             <input
+              className="table__search"
               type="text"
               value={search}
               name="search"
               onChange={(e) => setSearch(e.target.value)}
             />
             <button
+              className="table__button"
               type="submit"
               onClick={handleSearch}
             >
@@ -128,13 +143,14 @@ const Dashboard = () => {
                   <td>{t.mov}</td>
                   <td>{t.cliente}</td>
                   <td>{t.clienteNombre}</td>
-                  <td>${t.importeTotal}</td>
+                  <td>{formatToUSD(t.importeTotal)}</td>
                   <td>{formatDate(t.fechaEmision)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+
         <div>
           <BarChart
             height={500}

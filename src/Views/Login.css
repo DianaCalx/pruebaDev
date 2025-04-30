@@ -29,18 +29,29 @@
 }
 
 .form__button {
-  padding: 0.4rem;
-  background-color: #026fff;
-  border-radius: 5px;
+  width: 100%;
+
+  padding: 10px 20px;
+  font-size: 16px;
   color: white;
+  background: #4a90e2;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
-  margin: 0 auto;
-  width: 80px;
 }
 
 .form__button:hover {
   background-color: #004db1;
+}
+
+.password__container {
+  position: relative;
+}
+
+.password_icon {
+  position: absolute;
+  top: 2px;
+  right: 4px;
 }
 
 .login__error {

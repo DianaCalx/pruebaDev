@@ -8,7 +8,7 @@ export const UserProvider = ({ children }) => {
   const [info, setInfo] = useState({});
   const [tableData, setTableData] = useState();
 
-  const postUser = async () => {
+  const postUser = async ({ onSuccess, onError }) => {
     const value = {
       string_csql: `spValidarUsarioPassword @Email='${user.email}',@Password='${user.password}'`,
     };
@@ -30,6 +30,9 @@ export const UserProvider = ({ children }) => {
           sucursal: currentData.ds.table2[0].sucursal,
           usuario: currentData.ds.table[0].usuario,
         });
+        onSuccess();
+      } else {
+        onError();
       }
     } catch (error) {
       console.log(error);

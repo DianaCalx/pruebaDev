@@ -11,7 +11,7 @@ const AppRouter = () => {
           element={<Login />}
         />
         <Route
-          path="/table"
+          path="/dashboard"
           element={<Dashboard />}
         />
       </Routes>

@@ -4,16 +4,22 @@
   position: relative;
 }
 
-.back {
-  margin: 10px 0 20px 0;
-  width: 60px;
-  background-color: #026fff;
+.logout {
+  width: 90px;
+  font-size: 16px;
+  background: #e74c3c;
   color: white;
   border-radius: 5px;
   border: none;
-  padding: 0.5rem;
   position: absolute;
   right: 10px;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-top: 20px;
+}
+
+.logout:hover {
+  background: #e03f2d;
 }
 
 .table__container {
@@ -21,29 +27,32 @@
   display: flex;
   align-items: start;
   justify-content: space-between;
-  gap: 40px;
+  padding: 10px 40px;
+  gap: 10px;
 }
 
-.table__container div {
-  width: 50%;
+.table__container > div:first-of-type {
+  width: 40%;
+}
+
+.table__container > div:last-of-type {
+  width: 60%;
+  margin-top: 50px;
 }
 
 .table__form {
   display: flex;
-  justify-content: space-around;
   margin: 0 auto;
-  max-width: 1000px;
 }
 
 .table__form input {
-  width: 50%;
+  flex: 1;
 }
 
-.table {
+/* .table {
   border-collapse: collapse;
   border: 1px solid rgb(0, 0, 153);
-  width: 80%;
-  max-width: 1000px;
+  width: 100%;
   margin: 0 auto;
   margin-top: 20px;
 }
@@ -52,4 +61,64 @@
 .table td {
   border: 1px solid rgb(0, 0, 153);
   padding: 0.5rem;
+}
+
+.table tr {
+  text-align: center;
+} */
+
+.table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border: 1px solid #353535;
+}
+
+.table thead {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.table th,
+.table td {
+  padding: 12px 20px;
+  text-align: center;
+  border: 1px solid #353535;
+}
+
+.table tbody tr {
+  background-color: #f9f9f9;
+}
+
+.table__search {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  outline: none;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.table__search:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+.table__button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background: #4a90e2;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.table__button:hover {
+  background: #2a65a0;
 }

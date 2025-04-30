@@ -1,21 +1,16 @@
-import { useContext, useEffect, useState } from "react";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { UserContext } from "../context/UserContext";
 import "./Login.css";
 
 export const Login = () => {
-  const { info, user, setUser, postUser } = useContext(UserContext);
+  const { user, setUser, postUser } = useContext(UserContext);
   const [errors, setErrors] = useState(null);
   const [errorUser, setErrorUser] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (info.empresa) {
-      navigate("/table");
-      setUser({ email: "", password: "" });
-    }
-  }, [info, navigate, setUser]);
 
   const handleChange = (e) => {
     setErrors({
@@ -28,7 +23,7 @@ export const Login = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const currentErrors = {};
 
@@ -45,11 +40,10 @@ export const Login = () => {
       return;
     }
 
-    await postUser();
-    // setFormSubmited(true);
-    if (!info?.empresa) {
-      setErrorUser(true);
-    }
+    postUser({
+      onSuccess: () => navigate("/dashboard", { replace: true }),
+      onError: () => setErrorUser(true),
+    });
   };
 
   return (
@@ -72,12 +66,18 @@ export const Login = () => {
         </div>
         <div className="form__data">
           <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={user.password}
-            onChange={(e) => handleChange(e)}
-          />
+          <div className="password__container">
+            <input
+              type={visible ? "text" : "password"}
+              name="password"
+              value={user.password}
+              onChange={(e) => handleChange(e)}
+            />
+            <VisibilityIcon
+              className="password_icon"
+              onClick={() => setVisible((prev) => !prev)}
+            />
+          </div>
           {errors?.password && (
             <p className="login__error">{errors?.password}</p>
           )}

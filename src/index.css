@@ -4,3 +4,12 @@
   font-weight: 400;
   background-color: #cecece;
 }
+
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
